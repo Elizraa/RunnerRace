@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: e88cc6729f3f0634db0cda185586c415
+guid: 2e9daac1b878a1b47ad4d25fe26712ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7805603579778115863
-    second: AxeRun_0
+      213: -6393572868101769584
+    second: SmgAttack_0
   - first:
-      213: -2907418602712865789
-    second: AxeRun_1
+      213: -4599809683989204483
+    second: SmgAttack_1
+  - first:
+      213: -1164326192210610163
+    second: SmgAttack_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -119,43 +122,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AxeRun_0
+      name: SmgAttack_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 10
-        width: 18
-        height: 13
+        x: 12
+        y: 12
+        width: 10
+        height: 15
       alignment: 9
-      pivot: {x: 0.4557766, y: 0.4868788}
+      pivot: {x: 0.42294464, y: 0.30149218}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e6dec966ececa390800000000000000
-      internalID: -7805603579778115863
+      spriteID: 096f73fd9577547a0800000000000000
+      internalID: -6393572868101769584
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AxeRun_1
+      name: SmgAttack_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 10
-        width: 18
-        height: 13
+        x: 44
+        y: 12
+        width: 10
+        height: 18
       alignment: 9
-      pivot: {x: 0.4557766, y: 0.4868788}
+      pivot: {x: 0.42294464, y: 0.25980696}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 304efeb5f26c6a7d0800000000000000
-      internalID: -2907418602712865789
+      spriteID: df1fb6796713a20c0800000000000000
+      internalID: -4599809683989204483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SmgAttack_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 12
+        width: 10
+        height: 13
+      alignment: 9
+      pivot: {x: 0.4229446, y: 0.3640198}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d087a9e3f7b77dfe0800000000000000
+      internalID: -1164326192210610163
       vertices: []
       indices: 
       edges: []

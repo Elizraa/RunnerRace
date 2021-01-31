@@ -8,7 +8,8 @@ public class PlayerWeapon : MonoBehaviour
     public SpriteRenderer playerGraf;
     public Sprite[] playerIdle;
     private PlayerMove playerMove;
-
+    private bool attacking;
+    public float waitForNextAttack;
     enum weaponType { None, Axe, Smg};
     private weaponType currentWeapon;
 
@@ -19,14 +20,14 @@ public class PlayerWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = weaponType.None;
-        anim.SetBool("idleNormal", true);
+        currentWeapon = weaponType.Axe;
+        anim.SetBool("idleAxe", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Fire1") && currentWeapon != weaponType.None && !attacking) StartCoroutine(Attack());
     }
 
     private void FixedUpdate()
@@ -66,9 +67,20 @@ public class PlayerWeapon : MonoBehaviour
             anim.SetBool("runSmg", true);
         }
     }
-    //void Attack()
-    //{
-    //    audioSource.PlayOneShot(attack);
-    //    anim.SetTrigger("Attack");
-    //}
+    IEnumerator Attack()
+    {
+        attacking = true;
+        //audioSource.PlayOneShot(attack);
+        if (currentWeapon == weaponType.Axe)
+        {
+            anim.SetTrigger("attackAxe");
+            yield return new WaitForSeconds(waitForNextAttack);
+        }
+        else if (currentWeapon == weaponType.Smg)
+        {
+            anim.SetTrigger("attackSmg");
+            yield return new WaitForSeconds(waitForNextAttack/2);
+        }
+        attacking = false;
+    }
 }
