@@ -37,8 +37,6 @@ public class PlayerMove : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         //if (movement != Vector2.zero) anim.SetBool("Run", true);
-        //else anim.SetBool("Run", false);
-
         if (movement.y > 0.01f) playerGraf.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         else if (movement.y < -0.01f) playerGraf.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
         else if (movement.x > 0.01f) playerGraf.rotation = Quaternion.Euler(new Vector3(0f, 0f, -90f));
