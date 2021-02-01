@@ -15,6 +15,8 @@ public class EnemyControl : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public GameObject potionDrop;
+
     enum turn {Zero, First, Second, Third, Fourth, Fifth, Sixth, Seventh };
     private turn currentTurn;
     void Awake()
@@ -93,10 +95,12 @@ public class EnemyControl : MonoBehaviour
         if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
         health -= damage;
         healthBar.updateHealth(health);
+        if (health <= 0) Death();
     }
 
     void Death()
     {
-
+        Instantiate(potionDrop, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

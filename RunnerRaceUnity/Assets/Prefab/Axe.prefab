@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4901957965441131477}
   - component: {fileID: 4901957965441131476}
   - component: {fileID: 4901957965441131478}
+  - component: {fileID: 1811093360}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Item
@@ -97,3 +98,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frequency: 1.1
   pickUp: {fileID: 0}
+  playerMove: {fileID: 0}
+--- !u!60 &1811093360
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901957965441131467}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.25, y: 0.25}
+    newSize: {x: 0.25, y: 0.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.035723332, y: 0.10269681}
+      - {x: 0.0055440217, y: 0.11384841}
+      - {x: -0.06366636, y: 0.045221433}
+      - {x: -0.05285707, y: -0.010378588}
+      - {x: -0.11469846, y: -0.07752761}
+      - {x: -0.074817866, y: -0.119424164}
+      - {x: -0.007858448, y: -0.018897176}
+      - {x: 0.022399182, y: -0.0698158}
+      - {x: 0.06087847, y: -0.10269682}
+      - {x: 0.10775336, y: -0.064728364}
+      - {x: 0.12705867, y: 0.0008414802}
+      - {x: 0.10548469, y: 0.07254924}
+      - {x: 0.05082923, y: 0.06029522}

@@ -8,6 +8,9 @@ public class Bullet : MonoBehaviour
     public float speed = 35f;
     public Rigidbody2D rb;
     public GameObject impactEffect;
+    public float distanceInSeconds = 0.2f;
+
+    private bool hitSomething;
     private Tilemap tilemap;
 
     public int damageBullet = 15;
@@ -20,31 +23,20 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         rb.velocity = transform.up * speed;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void OnTriggerEnter2D (Collider2D hit)
-    {
-        if (hit.CompareTag("Item")) return;
-        if (hit.CompareTag("Enemy"))
-        {
-            hit.GetComponent<EnemyControl>().takeDamage(damageBullet);
-            StartCoroutine(Impact(transform.position));
-        }
-        rb.velocity = Vector2.zero;
-        GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(destroyBullet());
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector3 hitPosition = Vector3.zero;
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Item")) return;
+        if (collision.gameObject.CompareTag("Enemy"))
         {
+            collision.gameObject.GetComponent<EnemyControl>().takeDamage(damageBullet);
+            StartCoroutine(Impact(transform.position));
+        }
+        else if (collision.gameObject.CompareTag("Wall"))
+        {
+            Vector3 hitPosition = Vector3.zero;
             foreach (ContactPoint2D hit in collision.contacts)
             {
                 hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
@@ -53,12 +45,24 @@ public class Bullet : MonoBehaviour
                 StartCoroutine(Impact(hitPosition));
             }
         }
+        rb.velocity = Vector2.zero;
+        GetComponent<SpriteRenderer>().enabled = false;
     }
+
 
     IEnumerator Impact(Vector2 impactHere)
     {
+        hitSomething = true;
         GameObject prefabEffect = Instantiate(impactEffect, impactHere, transform.rotation);
         yield return new WaitForSeconds(0.2f);
         Destroy(prefabEffect);
+        Destroy(gameObject);
+    }
+
+    IEnumerator destroyBullet()
+    {
+        yield return new WaitForSeconds(distanceInSeconds);
+        if (hitSomething) yield break;
+        Destroy(gameObject);
     }
 }

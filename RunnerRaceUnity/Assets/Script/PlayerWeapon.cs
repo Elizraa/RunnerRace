@@ -84,15 +84,13 @@ public class PlayerWeapon : MonoBehaviour
         else if (currentWeapon == weaponType.Smg)
         {
             anim.SetTrigger("attackSmg");
-            StartCoroutine(Shoot());
+            Shoot();
         }
         attacking = false;
     }
 
-    IEnumerator Shoot()
+    void Shoot()
     {
         GameObject bulletInstantiate = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
-        yield return new WaitForSeconds(shootDistanceInSeconds);
-        Destroy(bulletInstantiate);
     }
 }

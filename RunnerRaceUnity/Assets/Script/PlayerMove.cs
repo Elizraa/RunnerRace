@@ -12,10 +12,27 @@ public class PlayerMove : MonoBehaviour
     [HideInInspector]
     public Vector2 movement;
 
+    private float firstMoveSpeed;
+
+    [HideInInspector]
+    public float timeElapsed;
+    public float lerpDuration = 2;
+
+    float startValue;
+    float endValue;
+    float valueToLerp;
+
     private void Awake()
     {
         //audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Start()
+    {
+        timeElapsed = 0;
+        firstMoveSpeed = endValue = moveSpeed;
+        startValue = moveSpeed + 3;
     }
 
     // Update is called once per frame
@@ -23,13 +40,15 @@ public class PlayerMove : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Fire2")) showMinimap();
-        else if (Input.GetButtonUp("Fire2")) closeMinimap();
     }
 
     private void FixedUpdate()
     {
         Move();
+        if(moveSpeed != firstMoveSpeed)
+        {
+            lerpSpeed();
+        }
     }
 
     void Move()
@@ -42,13 +61,18 @@ public class PlayerMove : MonoBehaviour
         else if (movement.x < -0.01f) playerGraf.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f));
     }
 
-    void showMinimap()
+    void lerpSpeed()
     {
-        //minimap.SetActive(true);
-    }
-
-    void closeMinimap()
-    {
-        //minimap.SetActive(false);
+        {
+            if (timeElapsed < lerpDuration)
+            {
+                moveSpeed = Mathf.Lerp(startValue, endValue, timeElapsed / lerpDuration);
+                timeElapsed += Time.deltaTime;
+            }
+            else
+            {
+                moveSpeed = endValue;
+            }
+        }
     }
 }

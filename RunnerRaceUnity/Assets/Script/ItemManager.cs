@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     public Transform[] spawnPoints;
-    public GameObject potion, axeItem, gunItem;
+    public GameObject potion, axeItem, gunItem, mapItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,5 +29,10 @@ public class ItemManager : MonoBehaviour
         {
             Instantiate(gunItem, spawnPoints[5].position, Quaternion.identity);
         }
+        if (!PlayerPrefs.HasKey("mapGet"))
+        {
+            Instantiate(mapItem, spawnPoints[6].position, Quaternion.identity);
+        }
+        Instantiate(potion, spawnPoints[7].position, Quaternion.identity);
     }
 }
