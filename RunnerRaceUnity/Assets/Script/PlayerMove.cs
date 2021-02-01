@@ -7,7 +7,6 @@ public class PlayerMove : MonoBehaviour
     public float moveSpeed = 5f;
     private Rigidbody2D rb;
     public Transform playerGraf;
-    public GameObject minimap;
 
     private AudioSource audioSource;
     [HideInInspector]

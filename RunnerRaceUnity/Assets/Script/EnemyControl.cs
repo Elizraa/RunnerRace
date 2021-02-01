@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyControl : MonoBehaviour
 {
-    public float health;
+    public int health;
     public float speed;
     public Transform[] turnPoint;
 
     private Vector2 movement;
     private Rigidbody2D rb;
     private Animator anim;
+
+    public HealthBar healthBar;
 
     enum turn {Zero, First, Second, Third, Fourth, Fifth, Sixth, Seventh };
     private turn currentTurn;
@@ -26,6 +29,7 @@ public class EnemyControl : MonoBehaviour
         anim.SetBool("run", true);
         movement = new Vector2(-1, 0);
         currentTurn = turn.Zero;
+        healthBar.setHealthBar(health);
     }
 
     private void Update()
@@ -82,5 +86,17 @@ public class EnemyControl : MonoBehaviour
     void move()
     {
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);   
+    }
+
+    public void takeDamage(int damage)
+    {
+        if (!healthBar.gameObject.activeSelf) healthBar.gameObject.SetActive(true);
+        health -= damage;
+        healthBar.updateHealth(health);
+    }
+
+    void Death()
+    {
+
     }
 }

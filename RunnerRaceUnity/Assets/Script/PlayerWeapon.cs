@@ -13,6 +13,12 @@ public class PlayerWeapon : MonoBehaviour
     enum weaponType { None, Axe, Smg};
     private weaponType currentWeapon;
 
+    public Transform shootPoint;
+    public GameObject bullet;
+    public float shootDistanceInSeconds = 1f;
+
+    public float damageAxe = 10;
+
     void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
@@ -20,14 +26,14 @@ public class PlayerWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = weaponType.Axe;
-        anim.SetBool("idleAxe", true);
+        currentWeapon = weaponType.Smg;
+        anim.SetBool("idleSmg", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && currentWeapon != weaponType.None && !attacking) StartCoroutine(Attack());
+        if (Input.GetButtonDown("Fire1") && currentWeapon != weaponType.None && !attacking) Attack();
     }
 
     private void FixedUpdate()
@@ -67,20 +73,26 @@ public class PlayerWeapon : MonoBehaviour
             anim.SetBool("runSmg", true);
         }
     }
-    IEnumerator Attack()
+    void Attack()
     {
         attacking = true;
         //audioSource.PlayOneShot(attack);
         if (currentWeapon == weaponType.Axe)
         {
             anim.SetTrigger("attackAxe");
-            yield return new WaitForSeconds(waitForNextAttack);
         }
         else if (currentWeapon == weaponType.Smg)
         {
             anim.SetTrigger("attackSmg");
-            yield return new WaitForSeconds(waitForNextAttack/2);
+            StartCoroutine(Shoot());
         }
         attacking = false;
+    }
+
+    IEnumerator Shoot()
+    {
+        GameObject bulletInstantiate = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
+        yield return new WaitForSeconds(shootDistanceInSeconds);
+        Destroy(bulletInstantiate);
     }
 }
