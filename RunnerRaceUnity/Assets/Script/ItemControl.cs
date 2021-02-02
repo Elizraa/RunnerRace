@@ -57,7 +57,6 @@ public class ItemControl : MonoBehaviour
                 GameManager.gameManager.minimap.SetActive(true);
                 Destroy(gameObject);
             }
-            Debug.Log(gameObject.name);
         }
     }
 }

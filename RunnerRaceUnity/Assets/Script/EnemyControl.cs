@@ -28,7 +28,6 @@ public class EnemyControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim.SetBool("run", true);
         movement = new Vector2(-1, 0);
         currentTurn = turn.Zero;
         healthBar.setHealthBar(health);
@@ -36,6 +35,7 @@ public class EnemyControl : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.gameManager.state == GameManager.gameState.start) anim.SetBool("run", true);
         if(transform.position.x <= turnPoint[0].position.x && currentTurn == turn.Zero)
         {
             transform.rotation = turnPoint[0].rotation;

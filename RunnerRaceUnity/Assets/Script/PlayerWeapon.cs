@@ -17,8 +17,6 @@ public class PlayerWeapon : MonoBehaviour
     public GameObject bullet;
     public float shootDistanceInSeconds = 1f;
 
-    public float damageAxe = 10;
-
     void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
@@ -26,14 +24,14 @@ public class PlayerWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = weaponType.Smg;
-        anim.SetBool("idleSmg", true);
+        currentWeapon = weaponType.None;
+        anim.SetBool("idleNormal", true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && currentWeapon != weaponType.None && !attacking) Attack();
+        if (Input.GetButtonDown("Fire1") && currentWeapon != weaponType.None && !attacking && GameManager.gameManager.state == GameManager.gameState.start) Attack();
     }
 
     private void FixedUpdate()
@@ -92,5 +90,31 @@ public class PlayerWeapon : MonoBehaviour
     void Shoot()
     {
         GameObject bulletInstantiate = Instantiate(bullet, shootPoint.position, shootPoint.rotation);
+    }
+
+    public void changeWeapon(int value)
+    {
+        switch (value)
+        {
+            case 0:
+                currentWeapon = weaponType.None;
+                anim.SetBool("idleNormal", true);
+                anim.SetBool("idleAxe", false);
+                anim.SetBool("idleSmg", false);
+
+                break;
+            case 1:
+                currentWeapon = weaponType.Axe;
+                anim.SetBool("idleNormal", false);
+                anim.SetBool("idleAxe", true);
+                anim.SetBool("idleSmg", false);
+                break;
+            case 2:
+                currentWeapon = weaponType.Smg;
+                anim.SetBool("idleNormal", false);
+                anim.SetBool("idleAxe", false);
+                anim.SetBool("idleSmg", true);
+                break;
+        }
     }
 }
