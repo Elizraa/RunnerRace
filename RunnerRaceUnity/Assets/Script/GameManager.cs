@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager;
 
-    public GameObject chest, minimap, startButton, resetButton, endPanel;
-    public Text winOrLose;
+    public GameObject chest, minimap, startButton, resetButton, endPanel, title;
+    public Text winOrLose, countdownText;
     public List<Dropdown.OptionData> weapon = new List<Dropdown.OptionData>();
     public Dropdown dropdownWeapon;
 
@@ -52,10 +52,10 @@ public class GameManager : MonoBehaviour
 
     public void StartRace()
     {
-        state = gameState.start;
         chest.SetActive(false);
+        title.SetActive(false);
         startButton.SetActive(false);
-        Time.timeScale = 1f;
+        StartCoroutine(countDown());
     }
 
     public void RetryRace()
@@ -74,17 +74,33 @@ public class GameManager : MonoBehaviour
         if (tag == "Player")
         {
             PlayerPrefs.SetInt("winner", 1);
+            SoundManager.soundManager.winSound();
         }
         else if (tag == "Enemy")
         {
             int random = Random.Range(0, 2);
             if (random == 1) winOrLose.text = "Someone already on the finish line... try again?";
             else winOrLose.text = "Need to go faster to the finish line, lets try again";
+            SoundManager.soundManager.loseSound();
         }
         else return;
         state = gameState.end;
         endPanel.SetActive(true);
         if (PlayerPrefs.GetInt("winner", 0) == 0) resetButton.SetActive(false);
         Time.timeScale = 0f;
+    }
+
+    IEnumerator countDown()
+    {
+        countdownText.text = "3";
+        yield return new WaitForSecondsRealtime(0.5f);
+        countdownText.text = "2";
+        yield return new WaitForSecondsRealtime(0.5f);
+        countdownText.text = "1";
+        yield return new WaitForSecondsRealtime(0.5f);
+        countdownText.text = "";
+        state = gameState.start;
+        SoundManager.soundManager.changeMusic();
+        Time.timeScale = 1f;
     }
 }

@@ -101,6 +101,7 @@ public class EnemyControl : MonoBehaviour
     void Death()
     {
         Instantiate(potionDrop, transform.position, Quaternion.identity);
+        SoundManager.soundManager.deathSound();
         Destroy(gameObject);
     }
 }

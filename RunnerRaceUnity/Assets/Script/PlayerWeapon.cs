@@ -24,8 +24,23 @@ public class PlayerWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentWeapon = weaponType.None;
-        anim.SetBool("idleNormal", true);
+        int i = PlayerPrefs.GetInt("currentWeapon");
+        switch (i)
+        {
+            case 0:
+                currentWeapon = weaponType.None;
+                anim.SetBool("idleNormal", true);
+                break;
+            case 1:
+                currentWeapon = weaponType.Axe;
+                anim.SetBool("idleAxe", true);
+                break;
+            case 2:
+                currentWeapon = weaponType.Smg;
+                anim.SetBool("idleSmg", true);
+                break;
+
+        }
     }
 
     // Update is called once per frame
@@ -78,10 +93,12 @@ public class PlayerWeapon : MonoBehaviour
         if (currentWeapon == weaponType.Axe)
         {
             anim.SetTrigger("attackAxe");
+            SoundManager.soundManager.axeSound();
         }
         else if (currentWeapon == weaponType.Smg)
         {
             anim.SetTrigger("attackSmg");
+            SoundManager.soundManager.shootSound();
             Shoot();
         }
         attacking = false;
@@ -116,5 +133,6 @@ public class PlayerWeapon : MonoBehaviour
                 anim.SetBool("idleSmg", true);
                 break;
         }
+        PlayerPrefs.SetInt("currentWeapon", value);
     }
 }
