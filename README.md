@@ -1,4 +1,4 @@
 # RunnerRace
 UnityGame
 
-elizra.itch.io/runner-race
+https://elizra.itch.io/runner-race
